@@ -5,7 +5,7 @@
     "documentation": "https://github.com/Fllorent0D/ha-custom-component-sodexo-be",
     "issue_tracker": "https://github.com/Fllorent0D/ha-custom-component-sodexo-be/pulls",
     "iot_class": "cloud_polling",
-    "requirements": [],
+    "requirements": ["pluxee"],
     "dependencies": [],
     "codeowners": [
         "@netsoft-ruidias",

@@ -1,20 +1,20 @@
 import asyncio
-import aiohttp
 
-from custom_components.sodexo.api import SodexoAPI
+from pluxee import PluxeeAsyncClient
 
 async def main():
-    async with aiohttp.ClientSession() as session:
-        api = SodexoAPI(session)
+    username = input("Username: (leave empty to use PLUXEE_USERNAME env variable)")
+    password = input("password: (leave empty to use PLUXEE_PASSWORD env variable)")
 
-        username = input("Enter your username.......: ")
-        password = input("Enter your password.......: ")
+    pc = PluxeeAsyncClient(username, password)
 
-        token = await api.login(username, password)
-        details = await api.getAccountDetails()
-        print(details.lunch_pass_amount)
-        print(details.gift_pass_amount)
-        print(details.eco_pass_amount)
-        print(details.updated)
+    balance = await pc.get_balance()
+    print(balance)
+    # Will return a PluxeeBalance object with those attributes
+    # lunch_pass: 89.19
+    # eco_pass: 396.16
+    # gift_pass: 0.0
+    # conso_pass: 0.0
+
         
 asyncio.get_event_loop().run_until_complete(main())
