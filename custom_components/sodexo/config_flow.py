@@ -1,6 +1,7 @@
 """Config flow for Sodexo integration."""
 from __future__ import annotations
 
+import traceback
 import logging
 import voluptuous as vol
 import async_timeout
@@ -65,5 +66,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 await api.get_balance()
                 return True
             except Exception as exception:
+                _LOGGER.error(traceback.format_exc())
                 _LOGGER.error(exception)
                 return False
