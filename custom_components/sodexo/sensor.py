@@ -13,7 +13,6 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-#from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from pluxee import PluxeeAsyncClient
 from .const import (
@@ -33,7 +32,6 @@ async def async_setup_entry(hass: HomeAssistant,
                             config_entry: ConfigEntry,
                             async_add_entities: Callable):
     """Setup sensor platform."""
-    #session = async_get_clientsession(hass, True)
     config = config_entry.data
     api = PluxeeAsyncClient(config[CONF_USERNAME], config[CONF_PASSWORD])
 
