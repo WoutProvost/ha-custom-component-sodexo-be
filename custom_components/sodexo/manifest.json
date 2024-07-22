@@ -5,11 +5,12 @@
     "documentation": "https://github.com/Fllorent0D/ha-custom-component-sodexo-be",
     "issue_tracker": "https://github.com/Fllorent0D/ha-custom-component-sodexo-be/pulls",
     "iot_class": "cloud_polling",
-    "requirements": ["pluxee-api", "pyopenssl"],
+    "requirements": ["pluxee-api==0.1.6"],
     "dependencies": [],
     "codeowners": [
         "@netsoft-ruidias",
-        "@Fllorent0D"
+        "@Fllorent0D",
+        "@Tib612"
     ],
     "config_flow": true
 }
