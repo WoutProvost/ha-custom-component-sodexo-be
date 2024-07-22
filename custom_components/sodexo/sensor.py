@@ -34,9 +34,9 @@ async def async_setup_entry(hass: HomeAssistant,
                             async_add_entities: Callable):
     """Setup sensor platform."""
     #session = async_get_clientsession(hass, True)
+    config = config_entry.data
     api = PluxeeAsyncClient(config[CONF_USERNAME], config[CONF_PASSWORD])
 
-    config = config_entry.data
     sensors = [
         SodexoLunchPassSensor(api, config),
         SodexoEcoPassSensor(api, config),
