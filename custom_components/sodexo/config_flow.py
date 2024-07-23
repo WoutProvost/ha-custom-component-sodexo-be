@@ -1,6 +1,7 @@
 """Config flow for Sodexo integration."""
 from __future__ import annotations
 
+import traceback
 import logging
 import voluptuous as vol
 import async_timeout
@@ -10,7 +11,7 @@ from homeassistant import config_entries
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 
-from .api import SodexoAPI
+from pluxee import PluxeeAsyncClient
 from .const import (
     DOMAIN, CONF_USERNAME, CONF_PASSWORD
 )
@@ -58,12 +59,13 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _test_credentials(self, user_input):
         """Return true if credentials is valid."""
-        session = async_get_clientsession(self.hass, True)
+        #session = async_get_clientsession(self.hass, True)
         async with async_timeout.timeout(10):
-            api = SodexoAPI(session)
+            api = PluxeeAsyncClient(user_input["username"], user_input["password"])
             try:
-                await api.login(user_input["username"], user_input["password"])
+                await api.get_balance()
                 return True
             except Exception as exception:
+                _LOGGER.error(traceback.format_exc())
                 _LOGGER.error(exception)
                 return False

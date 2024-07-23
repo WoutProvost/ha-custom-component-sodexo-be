@@ -1,7 +1,6 @@
 """Platform for sensor integration."""
 from __future__ import annotations
 from typing import Any
-import aiohttp
 import logging
 
 from datetime import timedelta
@@ -14,9 +13,8 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import SodexoAPI
+from pluxee import PluxeeAsyncClient
 from .const import (
     COUNTRY_PT, DOMAIN, DEFAULT_ICON, UNIT_OF_MEASUREMENT,
     CONF_COUNTRY, CONF_USERNAME, CONF_PASSWORD,
@@ -34,10 +32,9 @@ async def async_setup_entry(hass: HomeAssistant,
                             config_entry: ConfigEntry,
                             async_add_entities: Callable):
     """Setup sensor platform."""
-    session = async_get_clientsession(hass, True)
-    api = SodexoAPI(session)
-
     config = config_entry.data
+    api = PluxeeAsyncClient(config[CONF_USERNAME], config[CONF_PASSWORD])
+
     sensors = [
         SodexoLunchPassSensor(api, config),
         SodexoEcoPassSensor(api, config),
@@ -49,7 +46,7 @@ async def async_setup_entry(hass: HomeAssistant,
 class SodexoSensor(SensorEntity):
     """Representation of a Sodexo Card (Sensor)."""
 
-    def __init__(self, api: SodexoAPI, config: Any):
+    def __init__(self, api: PluxeeAsyncClient, config: Any):
         super().__init__()
         self._api = api
         self._config = config
@@ -113,19 +110,14 @@ class SodexoLunchPassSensor(SodexoSensor):
 
     async def async_update(self) -> None:
         api = self._api
-        config = self._config
 
         try:
-            token = await api.login(
-                config[CONF_USERNAME],
-                config[CONF_PASSWORD])
-            if (token):
-                account = await api.getAccountDetails()
-                self._state = account.lunch_pass_amount
-                self._updated = account.updated
-                self._available = True
+            account = await api.get_balance()
+            self._state = account.lunch_pass
+            self._updated = True
+            self._available = True
 
-        except aiohttp.ClientError as err:
+        except Exception as err:
             self._available = False
             _LOGGER.exception("Error updating data from DGEG API.", err)
 
@@ -143,19 +135,14 @@ class SodexoGiftPassSensor(SodexoSensor):
 
     async def async_update(self) -> None:
         api = self._api
-        config = self._config
 
         try:
-            token = await api.login(
-                config[CONF_USERNAME],
-                config[CONF_PASSWORD])
-            if (token):
-                account = await api.getAccountDetails()
-                self._state = account.gift_pass_amount
-                self._updated = account.updated
-                self._available = True
+            account = await api.get_balance()
+            self._state = account.gift_pass
+            self._updated = True
+            self._available = True
 
-        except aiohttp.ClientError as err:
+        except Exception as err:
             self._available = False
             _LOGGER.exception("Error updating data from DGEG API.", err)
 
@@ -173,18 +160,13 @@ class SodexoEcoPassSensor(SodexoSensor):
 
     async def async_update(self) -> None:
         api = self._api
-        config = self._config
 
         try:
-            token = await api.login(
-                config[CONF_USERNAME],
-                config[CONF_PASSWORD])
-            if (token):
-                account = await api.getAccountDetails()
-                self._state = account.eco_pass_amount
-                self._updated = account.updated
-                self._available = True
+            account = await api.get_balance()
+            self._state = account.eco_pass
+            self._updated = True
+            self._available = True
 
-        except aiohttp.ClientError as err:
+        except Exception as err:
             self._available = False
             _LOGGER.exception("Error updating data from DGEG API.", err)
