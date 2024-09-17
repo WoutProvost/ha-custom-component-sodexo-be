@@ -16,7 +16,7 @@
             }
         },
         "error": {
-            "auth": "Invalid credentials accessing https://minhaconta.sodexobeneficios.pt/ portal.",
+            "auth": "Invalid credentials accessing https://sodexo4you.be portal.",
             "invalidCountry": "Invalid country or country not supported yet."
         },
         "abort": {
