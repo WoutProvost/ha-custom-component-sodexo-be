@@ -41,14 +41,14 @@ As a bonus, this sample also includes a `tap_action` to update the card's balanc
 ```yaml
 type: entities
 entities:
-  - entity: sensor.sodexo_card
+  - entity: sensor.sodexo_lunch_amount
     secondary_info: last-updated
     tap_action:
       action: call-service
       service: homeassistant.update_entity
       target:
-        entity_id: sensor.sodexo_card
-  - entity: sensor.sodexo_card
+        entity_id: sensor.sodexo_lunch_amount
+  - entity: sensor.sodexo_lunch_amount
     name: Updated
     type: attribute
     attribute: updated
