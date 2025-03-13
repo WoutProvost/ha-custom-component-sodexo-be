@@ -14,7 +14,7 @@ from homeassistant.components.sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 
-from pluxee import PluxeeAsyncClient
+from .pluxee_api.pluxee_async_client import PluxeeAsyncClient
 from .const import (
     COUNTRY_PT, DOMAIN, DEFAULT_ICON, UNIT_OF_MEASUREMENT,
     CONF_COUNTRY, CONF_USERNAME, CONF_PASSWORD,

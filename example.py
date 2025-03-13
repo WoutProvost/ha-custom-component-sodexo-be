@@ -1,6 +1,6 @@
 import asyncio
 
-from pluxee import PluxeeAsyncClient
+from .custom_components.sodexo.pluxee_api.pluxee_async_client import PluxeeAsyncClient
 
 async def main():
     username = input("Username: (leave empty to use PLUXEE_USERNAME env variable)")

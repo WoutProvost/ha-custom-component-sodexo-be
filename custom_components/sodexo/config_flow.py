@@ -11,7 +11,7 @@ from homeassistant import config_entries
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 
-from pluxee import PluxeeAsyncClient
+from .pluxee_api.pluxee_async_client import PluxeeAsyncClient
 from .const import (
     DOMAIN, CONF_USERNAME, CONF_PASSWORD
 )
