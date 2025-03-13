@@ -8,7 +8,7 @@
 # Belgian Sodexo Card Integration
 Sodexo - Custom Component for Home Assistant
 
-The data source for this integration is the [Sodexo/Pluxee](https://users.pluxee.be/).
+The data source for this integration is the [Sodexo/Pluxee](https://users.pluxee.be).
 
 The author of this project categorically rejects any and all responsibility for the card balance and other data that were presented by the integration.
 
@@ -55,7 +55,7 @@ entities:
 ```
 
 # Legal notice
-This is a personal project and isn't in any way affiliated with, sponsored or endorsed by [Sodexo Belgium](https://users.pluxee.be/).
+This is a personal project and isn't in any way affiliated with, sponsored or endorsed by [Sodexo Belgium](https://users.pluxee.be).
 
 All product names, trademarks and registered trademarks in (the images in) this repository, are property of their respective owners. All images in this repository are used by the project for identification purposes only.
 
